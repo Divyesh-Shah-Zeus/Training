@@ -1,0 +1,88 @@
+/*
+***************************************
+->ASSIGNMENT:1                        *
+->Data Structure And Algorithm(2CP06) *
+->19CP047                             *
+->Divyesh Shah                        *
+***************************************
+*/
+//Problem:Write a complete C++ Program To Evaluate A Given Postfix Expression
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+template <class D>
+class stak
+{
+    D a[20];
+    int tos;
+public:
+    stak()
+    {
+        tos=0;
+    }
+    void push(D b)
+    {
+        a[tos]=b;
+        tos++;
+
+    }
+    D pop()
+    {
+        D x=a[--tos];
+        return x;
+
+    }
+    int peek()
+    {
+        return tos;
+    }
+};
+
+int main()
+{
+    char postfix[20];
+    cout<<"Enter postfix expression:"<<endl;
+    cin>>postfix;
+    stak <float> f;
+    int i=0,j=0;
+    float k;
+    cout << "Postfix expression: ";
+    while(postfix[i]!='\0')
+    {
+        if(postfix[i]>='0' && postfix[i]<='9')
+        {
+            k=postfix[i]-48;
+            f.push(k);
+        }
+        else
+        {
+            float m=0,n=0;
+            n=f.pop();
+            m=f.pop();
+            switch(postfix[i])
+            {
+            case '+':
+                f.push(m+n);
+                break;
+            case '-':
+                f.push(m-n);
+                break;
+            case '*':
+                f.push(m*n);
+                 break;
+            case '/':
+                f.push(m/n);
+                break;
+            case '^':
+                f.push(pow(m,n));
+                break;
+            }
+        }
+    }
+    cout << endl;
+    cout <<"Evaluation of Postfix: "<< f.pop();
+
+    return 0;
+
+}
